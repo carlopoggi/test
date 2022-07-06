@@ -10,6 +10,16 @@ h1 {
 
  .container span {
     position: absolute;
+    top: 0px;
+    right: 0px;
+ }
+
+ .wrapper {
+    margin: 20px;
+    position: relative;
+    width: 350px;
+    border: solid 30px;
+    padding: 5px
  }
 
  li {
