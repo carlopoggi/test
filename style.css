@@ -1,0 +1,50 @@
+h1 {
+    color: rgb(255, 0, 85);
+    font-size: 3em;
+    text-decoration: underline;
+ }
+
+ .container {
+    margin: 50px;
+ }
+
+ .container span {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+ }
+
+ .wrapper {
+    margin: 20px;
+    position: relative;
+    width: 350px;
+    border: solid 30px;
+    padding: 5px
+ }
+
+ li {
+    margin: 5px;
+    padding: 10px;
+ }
+
+ ol li {
+color: red;
+ }
+
+li {
+    color: green;
+}
+ 
+ #nav {
+    background: lightgray;
+    overflow: auto;
+ }
+
+ #nav li {
+    float: left;
+    padding: 10px;
+}
+
+#nav li:hover {
+    background: gray;
+ }
