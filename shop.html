@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+  <!--
+    fai un carrello in cui mettere cose con prezzi  
+    tramite pulsante e ti da il totale
+  -->
+  <div class="scatola">
+     <div class="lista">
+       <div class="tazza"> 
+         <p id="nome-prodotto">Tazza</p>
+         <span id="prezzo-prodotto">10</span>
+         <button type="button" onclick="addProduct()">
+          +
+        </button> 
+         <button type="button" onclick="removeProduct('tazza')">
+          -
+        </button> 
+       </div>
+       <div class="pentola">
+         <p> Pentola </p>  
+       </div>
+       <div class="bicchiere">
+         <p> Bicchiere </p>  
+       </div>
+     </div>
+   
+     <div class="carrello">
+       <h1>IL TUO CARRELLO  </h1>
+       <div id="lista-prodotti">
+       </div>
+       <div id="total">
+        TOTALE: 
+       </div>
+     </div>
+    
+  </div>
+
+ 
+
+<style>
+ div {
+  border: solid 2px; 
+  color: rgb(194, 126, 47);
+ }
+
+.scatola {
+  display: flex;
+  flex-wrap: wrap
+}
+
+ .lista {
+  flex-grow: 4;
+ }
+
+ .carrello {
+  flex-grow: 1;
+ }
+
+ h1{
+  color: black;
+  text-align: center;
+ }
+
+ p{
+  color: black;
+ }
+</style>
+
+<script> 
+
+const carrello = {
+  prodotti: { },
+  totale: 0
+}
+
+// funzione che legge dall HTML nome + prezzo + id del prodotto corrente
+function getProduct() {
+  var prezzo = parseInt(document.getElementById('prezzo-prodotto').innerHTML)
+  var nome = document.getElementById('nome-prodotto').innerHTML
+  const res = { prezzo, nome, counter: 1 }
+  return res
+}
+// funzione che aggiunge i dati del prodotto al carrello 
+function addProduct() {
+  var prodotto = getProduct()
+  const { prodotti } = carrello
+  const { nome } = prodotto
+  var id = nome.toLowerCase()
+  if (prodotti[id]) {
+    prodotti[id].counter++
+    console.log('Prodotto presente nel carrello', carrello)
+    return
+  } 
+  prodotti[id] = prodotto
+  drawCartRow()
+  console.log(carrello)
+}
+
+// funzione che rimuove i contenuti dal carrello
+function removeProduct(id) {
+  const { prodotti } = carrello
+  if (prodotti[id]) {
+    if (prodotti[id].counter > 1) {
+      prodotti[id].counter--
+      console.log('counter-1', prodotti[id]) 
+      return
+    }
+    delete prodotti[id]
+    console.log(prodotti)
+  }
+  
+}
+
+function drawCartRow() {
+  const { prodotti } = carrello
+  const productKeys = Object.keys(prodotti) // ['tazza']
+  // se prodotto in carrello aumenta counter di carrello
+  // aggiungi tasti aumenta e diminuisci quantita
+  // aggiungere totale prezzo
+  productKeys.map((key) => {
+    const { nome, counter, prezzo } = prodotti[key]
+    const cartRow = document.createElement('div')
+    cartRow.id = `cart-item-${key}`
+    cartRow.classList.add('row-cart')
+    cartRow.innerHTML = nome
+    const lista = document.getElementById('lista-prodotti')
+    lista.appendChild(cartRow)
+    const price = document.createElement('div')
+    price.innerHTML = `${prezzo} euro`
+    cartRow.appendChild(price)
+    const count = document.createElement('div')
+    count.innerHTML = `pz: ${counter}`
+    cartRow.appendChild(count)
+
+  })
+
+}
+// funzione che disegna i prodotti nel carrello in base al 
+// contenuto della variabile
+function drawCart() {
+
+  //cartRow.body.appendChild(pElement)
+  // leggendo carrello disegna gli elementi
+
+}
+
+</script>
