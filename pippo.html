@@ -1,5 +1,4 @@
 <head>
- <script src="index.js"></script>
 
 </head>
 
@@ -52,7 +51,68 @@ function cerca() {
   alert('cerca: '+ cosa);
 }
 
+function increment() {
+  var counter = document.getElementById('counter')
+  counter.innerHTML ++;
+}
+
+var persona = {
+  nome: 'Pruto',
+  eta: '3',
+  moglie: 'Beppa'
+}
+
+function createTable() {
+  const pElement = document.createElement('p')
+  pElement.id = 'name'
+  pElement.classList.add('belin')
+  pElement.innerHTML = 'questo testo'
+  document.body.appendChild(pElement)
+}
+
+function getPersona() {
+  for(key in persona) {
+    let element = document.getElementById(key)
+    element.innerHTML = persona[key]
+  } 
+}
 
 </script>
 
-<button type="button" onclick="alert('x')">Cliccami</button>
+<table order=2 colspan=4>
+  <caption> <b> cose importantissime </b> </caption>
+  <tr>
+   <th>
+    <p id="nome"> </p>
+   </th>
+  </tr>
+  <tr>
+    <th>
+     <p id="eta"> </p>
+    </th>
+   </tr>
+   <tr>
+    <th>
+     <p id="moglie"> </p>
+    </th>
+   </tr>
+</table>
+
+  <p id="counter">
+    0
+  </p>
+
+  <button type="button" onclick="getPersona()">
+    get persona
+  </button>
+  
+  <button type="button" onclick="createTable()">
+    add p element
+  </button>
+  
+
+<button type="button" onclick="increment()">
+  +
+</button>
+
+
