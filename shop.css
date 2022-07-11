@@ -1,0 +1,26 @@
+div {
+  border: solid 2px; 
+  color: rgb(194, 126, 47);
+ }
+
+.scatola {
+  display: flex;
+  flex-wrap: wrap
+}
+
+ .lista {
+  flex-grow: 4;
+ }
+
+ .carrello {
+  flex-grow: 1;
+ }
+
+ h1 {
+  color: black;
+  text-align: center;
+ }
+
+ p {
+  color: black;
+ }

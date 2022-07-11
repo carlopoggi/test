@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
-  <!--
-    fai un carrello in cui mettere cose con prezzi  
-    tramite pulsante e ti da il totale
-  -->
+  <head>
+    <meta charset="utf-8"> </meta>
+    <link rel="stylesheet" type="text/css" href="shop.css">
+  </head>
   <div class="scatola">
      <div class="lista">
        <div> 
@@ -38,11 +38,11 @@
         TOTALE: 
        </div>
      </div>
-    
   </div>
+</html>
 
-<script> 
-
+<script>
+  
 const carrello = {
   prodotti: { },
   totale: 0
@@ -66,10 +66,9 @@ function getProduct(id) {
   return res
 }
 // funzione che aggiunge i dati del prodotto al carrello 
-function addProduct(id) {
+export function addProduct(id) {
   var prodotto = getProduct(id)
   const { prodotti } = carrello
-  const { nome } = prodotto
   
   if (prodotti[id]) {
     prodotti[id].counter++
@@ -83,7 +82,7 @@ function addProduct(id) {
 }
 
 // funzione che rimuove i contenuti dal carrello
-function removeProduct(id) {
+export function removeProduct(id) {
   const { prodotti } = carrello
   if (prodotti[id]) {
     if (prodotti[id].counter > 1) {
@@ -131,32 +130,3 @@ function drawCartRow() {
 }
 
 </script>
-
-<style>
-  div {
-   border: solid 2px; 
-   color: rgb(194, 126, 47);
-  }
- 
- .scatola {
-   display: flex;
-   flex-wrap: wrap
- }
- 
-  .lista {
-   flex-grow: 4;
-  }
- 
-  .carrello {
-   flex-grow: 1;
-  }
- 
-  h1{
-   color: black;
-   text-align: center;
-  }
- 
-  p{
-   color: black;
-  }
- </style>
