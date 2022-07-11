@@ -6,22 +6,28 @@
   -->
   <div class="scatola">
      <div class="lista">
-       <div class="tazza"> 
-         <p id="nome-prodotto">Tazza</p>
-         <span id="prezzo-prodotto">10</span>
-         <button type="button" onclick="addProduct()">
+       <div> 
+         <p id="nome-tazza">Tazza</p>
+         <span id="prezzo-tazza">10</span>
+         <button type="button" onclick="addProduct('tazza')">
           +
         </button> 
          <button type="button" onclick="removeProduct('tazza')">
           -
         </button> 
        </div>
-       <div class="pentola">
-         <p> Pentola </p>  
-       </div>
-       <div class="bicchiere">
-         <p> Bicchiere </p>  
-       </div>
+
+       <div>
+        <p id="nome-pentola">Pentola</p>
+        <span id="prezzo-pentola">20</span>
+        <button type="button" onclick="addProduct('pentola')">
+            +
+          </button> 
+          <button type="button" onclick="removeProduct('pentola')">
+            -
+          </button> 
+       
+        </div>
      </div>
    
      <div class="carrello">
@@ -35,37 +41,6 @@
     
   </div>
 
- 
-
-<style>
- div {
-  border: solid 2px; 
-  color: rgb(194, 126, 47);
- }
-
-.scatola {
-  display: flex;
-  flex-wrap: wrap
-}
-
- .lista {
-  flex-grow: 4;
- }
-
- .carrello {
-  flex-grow: 1;
- }
-
- h1{
-  color: black;
-  text-align: center;
- }
-
- p{
-  color: black;
- }
-</style>
-
 <script> 
 
 const carrello = {
@@ -73,22 +48,33 @@ const carrello = {
   totale: 0
 }
 
+// aggiorna il numero di pezzi nel carrello
+function updateCartElementById(id) {
+  const pz = document.getElementById(`${id}-pz`)
+  const { prodotti } = carrello
+  // console.log('id ', id)
+  // console.log('pz ', pz)
+  pz.innerHTML = `pz: ${prodotti[id].counter}`
+  // incrementa il totale  
+}
+
 // funzione che legge dall HTML nome + prezzo + id del prodotto corrente
-function getProduct() {
-  var prezzo = parseInt(document.getElementById('prezzo-prodotto').innerHTML)
-  var nome = document.getElementById('nome-prodotto').innerHTML
+function getProduct(id) {
+  var prezzo = parseInt(document.getElementById(`prezzo-${id}`).innerHTML)
+  var nome = document.getElementById(`nome-${id}`).innerHTML
   const res = { prezzo, nome, counter: 1 }
   return res
 }
 // funzione che aggiunge i dati del prodotto al carrello 
-function addProduct() {
-  var prodotto = getProduct()
+function addProduct(id) {
+  var prodotto = getProduct(id)
   const { prodotti } = carrello
   const { nome } = prodotto
-  var id = nome.toLowerCase()
+  
   if (prodotti[id]) {
     prodotti[id].counter++
     console.log('Prodotto presente nel carrello', carrello)
+    updateCartElementById(id)
     return
   } 
   prodotti[id] = prodotto
@@ -102,11 +88,15 @@ function removeProduct(id) {
   if (prodotti[id]) {
     if (prodotti[id].counter > 1) {
       prodotti[id].counter--
+      updateCartElementById(id)
       console.log('counter-1', prodotti[id]) 
-      return
+    } else {
+      delete prodotti[id]
+      console.log('PRODOTTI' ,prodotti)
+      // rimuovere dall html del carrello l'elemento con quantita' 0 usando id
+      const pippo = document.getElementById(`cart-item-${id}`)
+      pippo.remove()
     }
-    delete prodotti[id]
-    console.log(prodotti)
   }
   
 }
@@ -117,31 +107,56 @@ function drawCartRow() {
   // se prodotto in carrello aumenta counter di carrello
   // aggiungi tasti aumenta e diminuisci quantita
   // aggiungere totale prezzo
+  const lista = document.getElementById('lista-prodotti')
+  lista.innerHTML = ''
+
   productKeys.map((key) => {
     const { nome, counter, prezzo } = prodotti[key]
     const cartRow = document.createElement('div')
     cartRow.id = `cart-item-${key}`
     cartRow.classList.add('row-cart')
     cartRow.innerHTML = nome
-    const lista = document.getElementById('lista-prodotti')
     lista.appendChild(cartRow)
     const price = document.createElement('div')
     price.innerHTML = `${prezzo} euro`
+    price.id = `${key}-prezzo`
     cartRow.appendChild(price)
     const count = document.createElement('div')
     count.innerHTML = `pz: ${counter}`
+    count.id = `${key}-pz` 
     cartRow.appendChild(count)
 
   })
 
 }
-// funzione che disegna i prodotti nel carrello in base al 
-// contenuto della variabile
-function drawCart() {
-
-  //cartRow.body.appendChild(pElement)
-  // leggendo carrello disegna gli elementi
-
-}
 
 </script>
+
+<style>
+  div {
+   border: solid 2px; 
+   color: rgb(194, 126, 47);
+  }
+ 
+ .scatola {
+   display: flex;
+   flex-wrap: wrap
+ }
+ 
+  .lista {
+   flex-grow: 4;
+  }
+ 
+  .carrello {
+   flex-grow: 1;
+  }
+ 
+  h1{
+   color: black;
+   text-align: center;
+  }
+ 
+  p{
+   color: black;
+  }
+ </style>
