@@ -39,10 +39,13 @@ function getCartQty(id) {
  // increment cart quantity
 function incrementCartQty(id) {
   var currentQty = getCartQty(id)
-  store.carrello[id] = currentQty++  
+  store.carrello[id] = currentQty + 1
 }
  // decrement cart quantity
  function decrementCartQty(id) {
   var currentQty = getCartQty(id)
-  store.carrello[id] = currentQty--
+  if (currentQty <= 1) {
+    return delete store.carrello[id]
+  }
+  store.carrello[id] = currentQty - 1
  }
