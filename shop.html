@@ -4,129 +4,13 @@
     <meta charset="utf-8"> </meta>
     <link rel="stylesheet" type="text/css" href="shop.css">
   </head>
-  <div class="scatola">
-     <div class="lista">
-       <div> 
-         <p id="nome-tazza">Tazza</p>
-         <span id="prezzo-tazza">10</span>
-         <button type="button" onclick="addProduct('tazza')">
-          +
-        </button> 
-         <button type="button" onclick="removeProduct('tazza')">
-          -
-        </button> 
-       </div>
-
-       <div>
-        <p id="nome-pentola">Pentola</p>
-        <span id="prezzo-pentola">20</span>
-        <button type="button" onclick="addProduct('pentola')">
-            +
-          </button> 
-          <button type="button" onclick="removeProduct('pentola')">
-            -
-          </button> 
-       
-        </div>
-     </div>
-   
-     <div class="carrello">
-       <h1>IL TUO CARRELLO  </h1>
-       <div id="lista-prodotti">
-       </div>
-       <div id="total">
-        TOTALE: 
-       </div>
-     </div>
-  </div>
+  <body> 
+    <div id="scatola" class="scatola">
+       <div id="lista" class="lista"></div>
+       <div id="carrello" class="carrello">  </div>
+    </div>  
+  </body>
+  <script src="./shop.js"> </script>
 </html>
 
-<script>
   
-const carrello = {
-  prodotti: { },
-  totale: 0
-}
-
-// aggiorna il numero di pezzi nel carrello
-function updateCartElementById(id) {
-  const pz = document.getElementById(`${id}-pz`)
-  const { prodotti } = carrello
-  // console.log('id ', id)
-  // console.log('pz ', pz)
-  pz.innerHTML = `pz: ${prodotti[id].counter}`
-  // incrementa il totale  
-}
-
-// funzione che legge dall HTML nome + prezzo + id del prodotto corrente
-function getProduct(id) {
-  var prezzo = parseInt(document.getElementById(`prezzo-${id}`).innerHTML)
-  var nome = document.getElementById(`nome-${id}`).innerHTML
-  const res = { prezzo, nome, counter: 1 }
-  return res
-}
-// funzione che aggiunge i dati del prodotto al carrello 
-export function addProduct(id) {
-  var prodotto = getProduct(id)
-  const { prodotti } = carrello
-  
-  if (prodotti[id]) {
-    prodotti[id].counter++
-    console.log('Prodotto presente nel carrello', carrello)
-    updateCartElementById(id)
-    return
-  } 
-  prodotti[id] = prodotto
-  drawCartRow()
-  console.log(carrello)
-}
-
-// funzione che rimuove i contenuti dal carrello
-export function removeProduct(id) {
-  const { prodotti } = carrello
-  if (prodotti[id]) {
-    if (prodotti[id].counter > 1) {
-      prodotti[id].counter--
-      updateCartElementById(id)
-      console.log('counter-1', prodotti[id]) 
-    } else {
-      delete prodotti[id]
-      console.log('PRODOTTI' ,prodotti)
-      // rimuovere dall html del carrello l'elemento con quantita' 0 usando id
-      const pippo = document.getElementById(`cart-item-${id}`)
-      pippo.remove()
-    }
-  }
-  
-}
-
-function drawCartRow() {
-  const { prodotti } = carrello
-  const productKeys = Object.keys(prodotti) // ['tazza']
-  // se prodotto in carrello aumenta counter di carrello
-  // aggiungi tasti aumenta e diminuisci quantita
-  // aggiungere totale prezzo
-  const lista = document.getElementById('lista-prodotti')
-  lista.innerHTML = ''
-
-  productKeys.map((key) => {
-    const { nome, counter, prezzo } = prodotti[key]
-    const cartRow = document.createElement('div')
-    cartRow.id = `cart-item-${key}`
-    cartRow.classList.add('row-cart')
-    cartRow.innerHTML = nome
-    lista.appendChild(cartRow)
-    const price = document.createElement('div')
-    price.innerHTML = `${prezzo} euro`
-    price.id = `${key}-prezzo`
-    cartRow.appendChild(price)
-    const count = document.createElement('div')
-    count.innerHTML = `pz: ${counter}`
-    count.id = `${key}-pz` 
-    cartRow.appendChild(count)
-
-  })
-
-}
-
-</script>
