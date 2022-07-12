@@ -1,5 +1,4 @@
-
-function renderProdItem({
+function renderShopItem({
   nome,
   id,
   prezzo,
@@ -14,7 +13,7 @@ return `
     </div>
     <button
       type="button"
-      onclick="incrementQty(${id})"
+      onclick="addToCart(${id})"
     >
       Aggiungi al carrello
     </button> 

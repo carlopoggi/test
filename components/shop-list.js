@@ -6,8 +6,13 @@ function renderList() {
 
   const shopList = keys.map((id) => {
     const { nome, prezzo } = prodotti[id]
-    renderProdItem(nome, id, prezzo)
+    return renderShopItem({ nome, id, prezzo })
   })
-
   el.innerHTML = shopList.join('')
+}
+
+function addToCart(id) {
+  incrementCartQty(id)
+  renderCart()
+  // aggiornare totale 
 }
