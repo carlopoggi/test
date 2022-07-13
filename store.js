@@ -49,3 +49,4 @@ function incrementCartQty(id) {
   }
   store.carrello[id] = currentQty - 1
  }
+ 
