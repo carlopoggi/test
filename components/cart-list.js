@@ -15,9 +15,11 @@ function renderCart() {
 function incrementCartItemQty(id) {
   incrementCartQty(id)
   renderCart()
+  renderTotale()
 }
 
 function decrementCartItemQty(id) {
   decrementCartQty(id)
   renderCart()
+  renderTotale()
 }

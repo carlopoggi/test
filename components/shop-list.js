@@ -14,5 +14,5 @@ function renderList() {
 function addToCart(id) {
   incrementCartQty(id)
   renderCart()
-  // aggiornare totale 
+  renderTotale()
 }

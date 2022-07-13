@@ -29,7 +29,7 @@ const store = {
 
  // get product
 function getProduct(id) {
-  return store.prodotti[id].nome || {}
+  return store.prodotti[id] || {}
 }
 
  // get cart quantity
